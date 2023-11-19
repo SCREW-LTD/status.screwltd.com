@@ -70,13 +70,13 @@
     <footer>
         SCREW LTD. &copy; 2023
     </footer>
-    <script>
+   <script>
     const apiStatusElement = document.getElementById('apiStatus');
     const lastUpdatedElement = document.getElementById('lastUpdated');
 
     function updateStatus(status) {
         apiStatusElement.textContent = status;
-        if (status.toLowerCase() === 'ok') {
+        if (status.toLowerCase() === 'online') {
             apiStatusElement.classList.add('online');
             apiStatusElement.classList.remove('offline');
         } else {
@@ -95,7 +95,8 @@
     fetch('https://api.screwltd.com/')
         .then(response => response.json())
         .then(data => {
-            updateStatus("Online");
+            const status = data.status === 'ok' ? 'Online' : 'Offline'; // Mapping 'ok' to 'Online'
+            updateStatus(status);
             updateLastUpdated();
         })
         .catch(error => {
