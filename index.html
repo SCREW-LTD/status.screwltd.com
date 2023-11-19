@@ -91,17 +91,15 @@
         lastUpdatedElement.textContent = `Last updated: ${formattedDate}`;
     }
 
-    // Perform an API call to https://api.screwltd.com/
     fetch('https://api.screwltd.com/')
         .then(response => response.json())
         .then(data => {
-            const status = data.status === 'ok' ? 'Online' : 'Offline'; // Mapping 'ok' to 'Online'
+            const status = data.status === 'ok' ? 'Online' : 'Offline';
             updateStatus(status);
             updateLastUpdated();
         })
         .catch(error => {
             console.error('Error fetching data:', error);
-            // Handle errors, update status accordingly
             updateStatus('Offline');
             updateLastUpdated();
         });
