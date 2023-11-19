@@ -76,7 +76,7 @@
 
     function updateStatus(status) {
         apiStatusElement.textContent = status;
-        if (status.toLowerCase() === 'online') {
+        if (status.toLowerCase() === 'ok') {
             apiStatusElement.classList.add('online');
             apiStatusElement.classList.remove('offline');
         } else {
@@ -91,11 +91,11 @@
         lastUpdatedElement.textContent = `Last updated: ${formattedDate}`;
     }
 
-    // Perform an API call to api.screwltd.com
-    fetch('https://api.screwltd.com/status')
+    // Perform an API call to https://api.screwltd.com/
+    fetch('https://api.screwltd.com/')
         .then(response => response.json())
         .then(data => {
-            const status = data.status;
+            const status = data.status; // Assuming the API returns status as an object with a 'status' field
             updateStatus(status);
             updateLastUpdated();
         })
