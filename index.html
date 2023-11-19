@@ -95,8 +95,7 @@
     fetch('https://api.screwltd.com/')
         .then(response => response.json())
         .then(data => {
-            const status = data.status; // Assuming the API returns status as an object with a 'status' field
-            updateStatus(status);
+            updateStatus("Online");
             updateLastUpdated();
         })
         .catch(error => {
