@@ -71,32 +71,40 @@
         SCREW LTD. &copy; 2023
     </footer>
     <script>
-        const apiStatusElement = document.getElementById('apiStatus');
-        const lastUpdatedElement = document.getElementById('lastUpdated');
+    const apiStatusElement = document.getElementById('apiStatus');
+    const lastUpdatedElement = document.getElementById('lastUpdated');
 
-        function updateStatus(status) {
-            apiStatusElement.textContent = status;
-            if (status.toLowerCase() === 'online') {
-                apiStatusElement.classList.add('online');
-                apiStatusElement.classList.remove('offline');
-            } else {
-                apiStatusElement.classList.add('offline');
-                apiStatusElement.classList.remove('online');
-            }
+    function updateStatus(status) {
+        apiStatusElement.textContent = status;
+        if (status.toLowerCase() === 'online') {
+            apiStatusElement.classList.add('online');
+            apiStatusElement.classList.remove('offline');
+        } else {
+            apiStatusElement.classList.add('offline');
+            apiStatusElement.classList.remove('online');
         }
+    }
 
-        function updateLastUpdated() {
-            const now = new Date();
-            const formattedDate = now.toLocaleString();
-            lastUpdatedElement.textContent = `Last updated: ${formattedDate}`;
-        }
+    function updateLastUpdated() {
+        const now = new Date();
+        const formattedDate = now.toLocaleString();
+        lastUpdatedElement.textContent = `Last updated: ${formattedDate}`;
+    }
 
-        // Simulate API call to fetch status
-        setTimeout(() => {
-            const randomStatus = Math.random() < 0.8 ? 'Online' : 'Offline';
-            updateStatus(randomStatus);
+    // Perform an API call to api.screwltd.com
+    fetch('https://api.screwltd.com/status')
+        .then(response => response.json())
+        .then(data => {
+            const status = data.status;
+            updateStatus(status);
             updateLastUpdated();
-        }, 2000); // Simulate delay
-    </script>
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            // Handle errors, update status accordingly
+            updateStatus('Offline');
+            updateLastUpdated();
+        });
+</script>
 </body>
 </html>
